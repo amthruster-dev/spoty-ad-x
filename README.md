@@ -41,7 +41,7 @@ Set Battery to Unrestricted to keep it running.
 ## Build from source
 
     pip install -r windows/requirements.txt pyinstaller
-    pyinstaller --onefile --noconsole --name SpotyAdX windows/ad_muter.pyw
+    pyinstaller --onefile --noconsole --name SpotyAdX --icon windows/icon.ico --add-data "windows/icon.ico;." windows/ad_muter.pyw
 
 - Android: `cd android-app && npm ci && npx expo prebuild -p android --no-install && cd android && ./gradlew assembleRelease`
 

@@ -20,6 +20,7 @@ jobs:
       - name: Build exe
         run: >
           pyinstaller --onefile --noconsole --name SpotyAdX
+          --icon windows/icon.ico --add-data "windows/icon.ico;."
           --collect-all pycaw --collect-all comtypes
           windows/ad_muter.pyw
       - uses: actions/upload-artifact@v4

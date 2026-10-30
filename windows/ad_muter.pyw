@@ -6,8 +6,10 @@ Run:      double-click ad_muter.pyw
 """
 import base64
 import ctypes
+import os
 import queue
 import subprocess
+import sys
 import threading
 import time
 import tkinter as tk
@@ -184,6 +186,11 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Spoty Ad X")
+        try:
+            base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+            self.iconbitmap(os.path.join(base, "icon.ico"))
+        except Exception:
+            pass
         self.geometry("460x500")
         self.configure(bg="#121212")
         self.ads = 0
