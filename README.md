@@ -47,6 +47,11 @@ Set Battery to Unrestricted to keep it running.
 
 GitHub Actions builds and publishes the exe and apk on every push to `main`.
 
+## License
+
+Copyright (c) 2026 amthruster-dev. All rights reserved. See [LICENSE](LICENSE). Personal use of the downloaded apps is allowed; copying or
+reusing the code is not.
+
 ## Notes
 
 This project is not affiliated with Spoty. It may break its terms of service; use at your own risk.

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 amthruster-dev. All rights reserved.
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   View, Text, Pressable, ScrollView, Switch, Share, StyleSheet, StatusBar as RNStatusBar,
@@ -92,6 +93,7 @@ export default function App() {
         <View style={styles.logBox}>
           <Text style={styles.logText}>{logLines}</Text>
         </View>
+        <Text style={styles.footer}>© 2026 amthruster-dev. All rights reserved.</Text>
       </ScrollView>
     </View>
   );
@@ -113,5 +115,6 @@ const styles = StyleSheet.create({
   btnAlt: { backgroundColor: '#444444' },
   btnText: { color: '#fff', fontWeight: '600' },
   logBox: { backgroundColor: '#1e1e1e', borderRadius: 8, padding: 10, minHeight: 200 },
+  footer: { color: '#777777', fontSize: 11, textAlign: 'center', marginTop: 12 },
   logText: { color: '#dddddd', fontFamily: 'monospace', fontSize: 11 },
 });

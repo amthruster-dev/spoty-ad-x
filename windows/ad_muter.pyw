@@ -1,4 +1,6 @@
 """
+Copyright (c) 2026 amthruster-dev. All rights reserved.
+
 Spoty Ad X v3 - no login needed (Windows, no terminal window).
 Reads Spoty's "now playing" info from Windows media controls + window titles.
 Install:  pip install pycaw psutil comtypes
@@ -219,6 +221,8 @@ class App(tk.Tk):
                   command=lambda: setattr(self.worker, "test_until", time.time() + 3)).pack(side="left", padx=4)
         tk.Button(btns, text="Download log", width=14, command=self.save_log).pack(side="left", padx=4)
 
+        tk.Label(self, text="(c) 2026 amthruster-dev. All rights reserved.", fg="#777777",
+                 bg="#121212", font=("Segoe UI", 8)).pack(side="bottom", pady=(0, 4))
         self.logbox = scrolledtext.ScrolledText(self, height=10, bg="#1e1e1e", fg="#dddddd",
                                                 font=("Consolas", 9), state="disabled")
         self.logbox.pack(fill="both", expand=True, padx=10, pady=(0, 10))
