@@ -1,0 +1,46 @@
+name: Build and release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r windows/requirements.txt pyinstaller
+      - name: Build exe
+        run: >
+          pyinstaller --onefile --noconsole --name SpotyAdX
+          --collect-all pycaw --collect-all comtypes
+          windows/ad_muter.pyw
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: dist/SpotyAdX.exe
+
+  release:
+    needs: [windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release delete latest --cleanup-tag --yes || true
+          gh release create latest out/SpotyAdX.exe \
+            --title "Spoty Ad X" \
+            --notes "Windows: SpotyAdX.exe"
