@@ -4,10 +4,26 @@ Mutes Spoty while an ad plays and restores the sound when music returns.
 
 ## Download
 
-Go to the [latest release](../../releases/latest) and download:
+Open the [latest release](../../releases/latest) and download the file for your device.
 
-- **SpotyAdX.exe** for Windows (no install, just run it)
-- **SpotyAdX.apk** for Android (allow "install unknown apps" when asked)
+### Windows
+
+1. Download **SpotyAdX.exe** and double-click it.
+2. If Windows shows "Windows protected your PC", click **More info**, then **Run anyway**.
+   (The app isn't code-signed, so Windows warns about every new app like this.)
+3. Open Spotify and play music. The app mutes Spotify's ads and unmutes when music returns.
+4. Minimize the window to keep it running. Closing it stops it.
+
+### Android
+
+1. Download **SpotyAdX.apk** and open it. Allow "install unknown apps" for your browser when asked.
+2. Open **Spoty Ad X** and tap **Open notification access**. Turn it on for Spoty Ad X.
+3. If the switch is greyed out or says "Restricted setting": Settings, Apps, Spoty Ad X, tap the
+   three dots, choose **Allow restricted settings**, then repeat step 2.
+4. Settings, Apps, Spoty Ad X, Battery: set it to **Unrestricted** so Android doesn't stop it.
+5. Play Spotify. The banner turns red and says AD - MUTED during ads.
+
+Android can't mute a single app, so the phone's media volume goes to 0 during an ad and comes back after.
 
 ## Windows
 
