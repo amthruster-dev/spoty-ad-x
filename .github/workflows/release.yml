@@ -27,8 +27,37 @@ jobs:
           name: windows
           path: dist/SpotyAdX.exe
 
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: android-app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install dependencies
+        working-directory: android-app
+        run: npm ci
+      - name: Generate native project
+        working-directory: android-app
+        run: npx expo prebuild -p android --no-install --clean
+      - name: Build apk
+        working-directory: android-app/android
+        run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a
+      - name: Rename apk
+        run: cp android-app/android/app/build/outputs/apk/release/app-release.apk SpotyAdX.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: SpotyAdX.apk
+
   release:
-    needs: [windows]
+    needs: [windows, android]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -41,6 +70,6 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           gh release delete latest --cleanup-tag --yes || true
-          gh release create latest out/SpotyAdX.exe \
+          gh release create latest out/SpotyAdX.exe out/SpotyAdX.apk \
             --title "Spoty Ad X" \
-            --notes "Windows: SpotyAdX.exe"
+            --notes "Windows: SpotyAdX.exe. Android: SpotyAdX.apk."
