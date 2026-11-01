@@ -31,6 +31,14 @@ JUNK_PREFIXES = ("gdi+", "default ime", "msctfime", "chrome legacy")
 def main_titles(wtitles):
     return [t for t in wtitles if not t.lower().startswith(JUNK_PREFIXES)]
 
+TERMS = (
+    'Use this app at your own risk. It is provided "as is", without warranty of any kind. The developer (amthruster-dev) is not responsible or liable for any damages, losses, or legal issues arising from downloading, installing, or using this app, including problems with your Spotify account or its terms of service, damage to your device, or audio that is muted or not muted by mistake.'
+    "\n\n"
+    "This app is not affiliated with, endorsed by, or sponsored by Spotify. It only reads what is already shown on your device (the Spotify window title on Windows, the Spotify notification on Android). It does not block or skip ads and does not access your Spotify account. On Android it sets the phone's media volume to 0 during an ad and restores it afterward. Using it may go against the terms of the services you use, and you are responsible for following the laws and terms that apply to you."
+    "\n\n"
+    'By installing or using this app you accept these terms.'
+)
+
 PS_SCRIPT = r"""
 $ErrorActionPreference = 'SilentlyContinue'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -223,6 +231,10 @@ class App(tk.Tk):
 
         tk.Label(self, text="(c) 2026 amthruster-dev. All rights reserved.", fg="#777777",
                  bg="#121212", font=("Segoe UI", 8)).pack(side="bottom", pady=(0, 4))
+        link = tk.Label(self, text="Disclaimer & terms of use", fg="#6ea8fe", bg="#121212",
+                        font=("Segoe UI", 9, "underline"), cursor="hand2")
+        link.pack(side="bottom")
+        link.bind("<Button-1>", lambda e: self.show_terms())
         self.logbox = scrolledtext.ScrolledText(self, height=10, bg="#1e1e1e", fg="#dddddd",
                                                 font=("Consolas", 9), state="disabled")
         self.logbox.pack(fill="both", expand=True, padx=10, pady=(0, 10))
@@ -237,6 +249,15 @@ class App(tk.Tk):
         v = tk.Label(f, text="-", anchor="w", justify="left", wraplength=250, fg="white", bg="#121212")
         v.pack(side="left")
         return v
+
+    def show_terms(self):
+        win = tk.Toplevel(self)
+        win.title("Disclaimer & terms of use")
+        win.configure(bg="#121212")
+        win.geometry("440x400")
+        tk.Label(win, text=TERMS, justify="left", wraplength=410, fg="#dddddd", bg="#121212",
+                 font=("Segoe UI", 9)).pack(padx=14, pady=14, anchor="w")
+        tk.Button(win, text="Close", width=12, command=win.destroy).pack(pady=(0, 12))
 
     def toggle(self):
         self.worker.enabled = not self.worker.enabled

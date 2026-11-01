@@ -6,11 +6,18 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import AdMuter from './modules/ad-muter';
 
+const TERMS = [
+  "Use this app at your own risk. It is provided \"as is\", without warranty of any kind. The developer (amthruster-dev) is not responsible or liable for any damages, losses, or legal issues arising from downloading, installing, or using this app, including problems with your Spotify account or its terms of service, damage to your device, or audio that is muted or not muted by mistake.",
+  "This app is not affiliated with, endorsed by, or sponsored by Spotify. It only reads what is already shown on your device (the Spotify window title on Windows, the Spotify notification on Android). It does not block or skip ads and does not access your Spotify account. On Android it sets the phone's media volume to 0 during an ad and restores it afterward. Using it may go against the terms of the services you use, and you are responsible for following the laws and terms that apply to you.",
+  "By installing or using this app you accept these terms.",
+];
+
 const EMPTY = { listener: false, enabled: true, muted: false, ads: 0, lastTitle: '', lastText: '' };
 
 export default function App() {
   const [s, setS] = useState(EMPTY);
   const [log, setLog] = useState('');
+  const [showTerms, setShowTerms] = useState(false);
 
   const refresh = useCallback(() => {
     try {
@@ -93,6 +100,10 @@ export default function App() {
         <View style={styles.logBox}>
           <Text style={styles.logText}>{logLines}</Text>
         </View>
+        <Pressable onPress={() => setShowTerms(!showTerms)}>
+          <Text style={styles.termsHead}>{(showTerms ? '▾ ' : '▸ ') + 'Disclaimer & terms of use'}</Text>
+        </Pressable>
+        {showTerms && TERMS.map((t, i) => <Text key={i} style={styles.termsText}>{t}</Text>)}
         <Text style={styles.footer}>© 2026 amthruster-dev. All rights reserved.</Text>
       </ScrollView>
     </View>
@@ -115,6 +126,8 @@ const styles = StyleSheet.create({
   btnAlt: { backgroundColor: '#444444' },
   btnText: { color: '#fff', fontWeight: '600' },
   logBox: { backgroundColor: '#1e1e1e', borderRadius: 8, padding: 10, minHeight: 200 },
+  termsHead: { color: '#6ea8fe', fontSize: 14, fontWeight: '600', marginTop: 14 },
+  termsText: { color: '#999999', fontSize: 12, marginTop: 8 },
   footer: { color: '#777777', fontSize: 11, textAlign: 'center', marginTop: 12 },
   logText: { color: '#dddddd', fontFamily: 'monospace', fontSize: 11 },
 });

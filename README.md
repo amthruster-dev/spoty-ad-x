@@ -52,6 +52,10 @@ GitHub Actions builds and publishes the exe and apk on every push to `main`.
 Copyright (c) 2026 amthruster-dev. All rights reserved. See [LICENSE](LICENSE). Personal use of the downloaded apps is allowed; copying or
 reusing the code is not.
 
-## Notes
+## Disclaimer & terms of use
 
-This project is not affiliated with Spoty. It may break its terms of service; use at your own risk.
+Use this app at your own risk. It is provided "as is", without warranty of any kind. The developer (amthruster-dev) is not responsible or liable for any damages, losses, or legal issues arising from downloading, installing, or using this app, including problems with your Spotify account or its terms of service, damage to your device, or audio that is muted or not muted by mistake.
+
+This app is not affiliated with, endorsed by, or sponsored by Spotify. It only reads what is already shown on your device (the Spotify window title on Windows, the Spotify notification on Android). It does not block or skip ads and does not access your Spotify account. On Android it sets the phone's media volume to 0 during an ad and restores it afterward. Using it may go against the terms of the services you use, and you are responsible for following the laws and terms that apply to you.
+
+By installing or using this app you accept these terms.
