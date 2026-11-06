@@ -14,16 +14,6 @@ Open the [latest release](../../releases/latest) and download the file for your 
 3. Open Spotify and play music. The app mutes Spotify's ads and unmutes when music returns.
 4. Minimize the window to keep it running. Closing it stops it.
 
-### Mac
-
-1. Download **SpotyAdX-mac.zip**, unzip it, and drag **Spoty Ad X** to Applications.
-2. Right-click the app, choose **Open**, then **Open** again. (The app isn't notarized by Apple, so a normal double-click is blocked the first time.)
-3. Open Spotify and play music. When macOS asks to let Spoty Ad X control Spotify, click **OK**.
-   If you missed it: System Settings, Privacy & Security, Automation, turn on Spotify under Spoty Ad X.
-4. Spotify's volume goes to 0 during an ad and returns after. The build is for Apple Silicon Macs.
-
-iPhone and iPad are not supported: iOS does not let one app read or mute another app.
-
 ### Android
 
 1. Download **SpotyAdX.apk** and open it. Allow "install unknown apps" for your browser when asked.
@@ -40,10 +30,6 @@ Android can't mute a single app, so the phone's media volume goes to 0 during an
 Reads Spoty's window title and Windows media info. Anything that is not "Artist - Song" counts as an ad.
 Only Spoty is muted. No login needed. Minimize the window to keep it running; closing it stops it.
 
-## Mac
-
-Reads Spoty's current track through its AppleScript interface (`mac/`). Ads have a `spotify:ad:` link. Only Spoty's volume is changed.
-
 ## Android
 
 An Android app with a small native notification listener (`android-app/`).
@@ -57,10 +43,9 @@ Set Battery to Unrestricted to keep it running.
     pip install -r windows/requirements.txt pyinstaller
     pyinstaller --onefile --noconsole --name SpotyAdX --icon windows/icon.ico --add-data "windows/icon.ico;." windows/ad_muter.pyw
 
-- Mac: `pip install pyinstaller` then `pyinstaller --windowed --name "Spoty Ad X" --icon mac/icon.icns mac/ad_muter_mac.py`
 - Android: see `.github/workflows/release.yml` for the exact build steps.
 
-GitHub Actions builds and publishes the exe, apk and Mac app on every push to `main`.
+GitHub Actions builds and publishes the exe and apk on every push to `main`.
 
 ## License
 
@@ -71,6 +56,6 @@ reusing the code is not.
 
 Use this app at your own risk. It is provided "as is", without warranty of any kind. The developer (amthruster-dev) is not responsible or liable for any damages, losses, or legal issues arising from downloading, installing, or using this app, including problems with your Spotify account or its terms of service, damage to your device, or audio that is muted or not muted by mistake.
 
-This app is not affiliated with, endorsed by, or sponsored by Spotify. It only reads what is already shown on your device (the Spotify window title on Windows, the current track on Mac, the Spotify notification on Android). It does not block or skip ads and does not access your Spotify account. On Android it sets the phone's media volume to 0 during an ad and restores it afterward. Using it may go against the terms of the services you use, and you are responsible for following the laws and terms that apply to you.
+This app is not affiliated with, endorsed by, or sponsored by Spotify. It only reads what is already shown on your device (the Spotify window title on Windows, the Spotify notification on Android). It does not block or skip ads and does not access your Spotify account. On Android it sets the phone's media volume to 0 during an ad and restores it afterward. Using it may go against the terms of the services you use, and you are responsible for following the laws and terms that apply to you.
 
 By installing or using this app you accept these terms.
