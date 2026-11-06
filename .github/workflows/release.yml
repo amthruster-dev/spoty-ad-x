@@ -57,8 +57,33 @@ jobs:
           name: android
           path: SpotyAdX.apk
 
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyinstaller
+      - name: Build app
+        run: >
+          pyinstaller --windowed --name "Spoty Ad X"
+          --icon mac/icon.icns
+          --osx-bundle-identifier com.spoty.adx
+          mac/ad_muter_mac.py
+      - name: Add Automation permission text and sign
+        run: |
+          /usr/libexec/PlistBuddy -c "Add :NSAppleEventsUsageDescription string 'Spoty Ad X needs to talk to Spotify to detect ads and mute them.'" "dist/Spoty Ad X.app/Contents/Info.plist"
+          codesign --force --deep --sign - "dist/Spoty Ad X.app"
+      - name: Zip
+        run: ditto -c -k --keepParent "dist/Spoty Ad X.app" SpotyAdX-mac.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac
+          path: SpotyAdX-mac.zip
+
   release:
-    needs: [windows, android]
+    needs: [windows, android, mac]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -71,6 +96,6 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           gh release delete latest --cleanup-tag --yes || true
-          gh release create latest out/SpotyAdX.exe out/SpotyAdX.apk \
+          gh release create latest out/SpotyAdX.exe out/SpotyAdX.apk out/SpotyAdX-mac.zip \
             --title "Spoty Ad X" \
-            --notes "Windows: SpotyAdX.exe. Android: SpotyAdX.apk."
+            --notes "Windows: SpotyAdX.exe. Android: SpotyAdX.apk. Mac: SpotyAdX-mac.zip."
